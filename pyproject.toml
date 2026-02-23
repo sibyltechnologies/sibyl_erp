@@ -12,10 +12,7 @@ readme = "README.md"
 dynamic = ["version"]
 requires-python = ">=3.10"
 
-dependencies = [
-    "frappe",
-    "erpnext",
-]
+dependencies = []
 
 [project.urls]
 Homepage = "https://sibyl.io"
