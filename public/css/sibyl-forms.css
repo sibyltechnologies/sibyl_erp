@@ -1,0 +1,271 @@
+/*
+ * SIBYL ERP — Forms
+ * DocType form views, field styling, sections
+ */
+
+/* ── Form Container ─────────────────────────── */
+.form-page .page-body,
+.form-wrapper {
+    background: var(--bg-light-gray) !important;
+}
+
+/* ── Form Layout ────────────────────────────── */
+.form-layout {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: var(--sibyl-radius-lg) !important;
+    box-shadow: var(--sibyl-shadow-xs) !important;
+    overflow: hidden !important;
+}
+
+/* ── Form Sections ──────────────────────────── */
+.section-head,
+.form-section > .section-head {
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    color: var(--text-color) !important;
+    padding: var(--sibyl-space-4) var(--sibyl-space-6) !important;
+    background: var(--bg-muted) !important;
+    border-bottom: var(--sibyl-border) !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--sibyl-space-2);
+    letter-spacing: 0.01em;
+}
+
+.section-head:hover {
+    background: var(--bg-light-gray) !important;
+}
+
+/* ── Form Fields ────────────────────────────── */
+.form-column,
+.form-group {
+    padding: var(--sibyl-space-3) var(--sibyl-space-6) !important;
+}
+
+.frappe-control .control-label,
+.control-label {
+    font-size: var(--sibyl-font-size-xs) !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: var(--sibyl-space-1) !important;
+}
+
+.frappe-control.has-error .control-label {
+    color: var(--sibyl-danger) !important;
+}
+
+/* Required asterisk */
+.reqd > .control-label::after {
+    content: ' *';
+    color: var(--sibyl-danger);
+}
+
+/* Input wrapper */
+.control-input-wrapper,
+.control-value-input {
+    position: relative;
+}
+
+/* Text / Data fields */
+.frappe-control[data-fieldtype="Data"] input,
+.frappe-control[data-fieldtype="Small Text"] textarea,
+.frappe-control[data-fieldtype="Text"] textarea,
+.frappe-control[data-fieldtype="Long Text"] textarea,
+.frappe-control[data-fieldtype="Text Editor"] .ql-editor {
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    color: var(--text-color) !important;
+    font-family: var(--sibyl-font-sans) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    padding: 7px 10px !important;
+    width: 100% !important;
+    transition: border-color var(--sibyl-transition-fast),
+                box-shadow var(--sibyl-transition-fast) !important;
+}
+
+/* Read-only fields */
+.frappe-control .like-disabled-input,
+.frappe-control.read-mode .control-value {
+    background: var(--bg-muted) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    padding: 6px 10px !important;
+    color: var(--text-color) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+}
+
+/* ── Link Fields ────────────────────────────── */
+.link-btn .btn {
+    background: var(--bg-muted) !important;
+    border: none !important;
+    border-radius: 0 var(--sibyl-radius-md) var(--sibyl-radius-md) 0 !important;
+    color: var(--text-muted) !important;
+    height: 100%;
+}
+
+/* Autocomplete dropdown */
+.awesomplete > ul {
+    background: var(--card-bg) !important;
+    border: var(--sibyl-border) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    box-shadow: var(--sibyl-shadow-lg) !important;
+    padding: var(--sibyl-space-1) 0 !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.awesomplete > ul > li {
+    padding: 7px 14px !important;
+    color: var(--text-color) !important;
+}
+
+.awesomplete > ul > li[aria-selected="true"],
+.awesomplete > ul > li:hover {
+    background: var(--sibyl-primary-light) !important;
+    color: var(--sibyl-primary) !important;
+}
+
+/* ── Select / Dropdown Fields ────────────────── */
+.frappe-control select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239EA6BE' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    padding-right: 28px !important;
+    cursor: pointer;
+}
+
+/* ── Check boxes ────────────────────────────── */
+.frappe-control input[type="checkbox"] {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: var(--sibyl-radius-sm) !important;
+    border: 2px solid var(--input-border) !important;
+    accent-color: var(--sibyl-primary) !important;
+    cursor: pointer;
+}
+
+/* ── Form Tabs ──────────────────────────────── */
+.form-tabs .nav-tabs {
+    border-bottom: var(--sibyl-border) !important;
+    gap: 0 !important;
+    padding: 0 var(--sibyl-space-6) !important;
+    background: var(--card-bg) !important;
+}
+
+.form-tabs .nav-tabs > li > a,
+.nav-tabs > li > a {
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    color: var(--text-muted) !important;
+    border: none !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    padding: var(--sibyl-space-3) var(--sibyl-space-4) !important;
+    transition: all var(--sibyl-transition-fast) !important;
+    margin: 0 !important;
+}
+
+.form-tabs .nav-tabs > li > a:hover,
+.nav-tabs > li > a:hover {
+    color: var(--text-color) !important;
+    background: transparent !important;
+    border-bottom-color: var(--sibyl-gray-300) !important;
+}
+
+.form-tabs .nav-tabs > li.active > a,
+.nav-tabs > li.active > a {
+    color: var(--sibyl-primary) !important;
+    border-bottom-color: var(--sibyl-primary) !important;
+    background: transparent !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+}
+
+/* ── Child Table / Grid ──────────────────────── */
+.form-grid,
+.grid-wrapper {
+    border: var(--sibyl-border) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    overflow: hidden !important;
+}
+
+.grid-heading-row .grid-row-check,
+.grid-heading-row .data-row .col,
+.row-check, .grid-row > .data-row > .col {
+    font-size: var(--sibyl-font-size-xs) !important;
+}
+
+.grid-row:hover {
+    background: var(--bg-muted) !important;
+}
+
+.grid-add-row a {
+    color: var(--sibyl-primary) !important;
+    font-size: var(--sibyl-font-size-xs) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+}
+
+/* ── Form Action Bar (Save / Submit etc.) ────── */
+.form-page .page-actions .btn-primary {
+    background: var(--sibyl-primary) !important;
+    border: none !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    padding: 6px 18px !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+}
+
+/* ── Timeline ────────────────────────────────── */
+.timeline .timeline-item {
+    border-left: 2px solid var(--border-color) !important;
+    padding-left: var(--sibyl-space-4) !important;
+    margin-bottom: var(--sibyl-space-4) !important;
+}
+
+.timeline .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--sibyl-primary);
+    border: 2px solid var(--bg-color);
+    position: absolute;
+    left: -6px;
+}
+
+/* ── Comment Box ────────────────────────────── */
+.comment-box .ql-editor {
+    min-height: 80px;
+    font-family: var(--sibyl-font-sans) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+}
+
+/* ── Form Message Banner ─────────────────────── */
+.form-message {
+    padding: var(--sibyl-space-3) var(--sibyl-space-4);
+    border-radius: var(--sibyl-radius-md);
+    font-size: var(--sibyl-font-size-sm);
+    margin-bottom: var(--sibyl-space-4);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sibyl-space-2);
+}
+
+.form-message.yellow {
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    color: #8a6000;
+}
+
+.form-message.blue {
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    color: var(--sibyl-info);
+}

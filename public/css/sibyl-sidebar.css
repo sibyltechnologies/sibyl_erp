@@ -1,0 +1,240 @@
+/*
+ * SIBYL ERP — Sidebar
+ * Left navigation sidebar complete redesign
+ */
+
+/* ── Sidebar Container ──────────────────────── */
+.layout-side-section,
+.desk-sidebar,
+.sidebar-menu,
+[class*="sidebar"] .list-unstyled {
+    background: var(--sidebar-bg) !important;
+    width: var(--sibyl-sidebar-width) !important;
+    min-height: 100vh;
+    border-right: 1px solid rgba(255,255,255,0.05) !important;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+    transition: width var(--sibyl-transition-slow) !important;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Collapsed state */
+.sidebar-collapsed .layout-side-section,
+.sidebar-collapsed .desk-sidebar {
+    width: var(--sibyl-sidebar-collapsed) !important;
+}
+
+/* ── Sidebar Top (App Switcher / Logo area) ─── */
+.sibyl-sidebar-header {
+    height: var(--sibyl-navbar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--sibyl-space-3);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-shrink: 0;
+}
+
+/* ── Sidebar Section Labels ──────────────────── */
+.sidebar-section-header,
+.list-sidebar-label,
+.standard-sidebar-section > .standard-sidebar-item.has-children > .sidebar-item-label {
+    font-size: 10px !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    color: rgba(255,255,255,0.3) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    padding: var(--sibyl-space-4) var(--sibyl-space-4) var(--sibyl-space-2) !important;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* ── Sidebar Items ──────────────────────────── */
+.standard-sidebar-item,
+.sidebar-menu .sidebar-item,
+.list-sidebar .sidebar-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--sibyl-space-3) !important;
+    padding: 7px var(--sibyl-space-4) !important;
+    margin: 1px var(--sibyl-space-2) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    color: rgba(255,255,255,0.6) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    cursor: pointer;
+    text-decoration: none !important;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: all var(--sibyl-transition-fast) !important;
+    position: relative;
+}
+
+.standard-sidebar-item:hover,
+.sidebar-menu .sidebar-item:hover {
+    background: rgba(255,255,255,0.07) !important;
+    color: rgba(255,255,255,0.9) !important;
+}
+
+/* Active sidebar item */
+.standard-sidebar-item.selected,
+.standard-sidebar-item.active,
+.sidebar-menu .sidebar-item.active,
+.sidebar-item-container.selected > .standard-sidebar-item {
+    background: var(--sibyl-primary) !important;
+    color: #fff !important;
+}
+
+.standard-sidebar-item.selected .sidebar-item-icon,
+.standard-sidebar-item.active .sidebar-item-icon {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+
+/* ── Sidebar Icons ──────────────────────────── */
+.sidebar-item-icon,
+.standard-sidebar-item .icon,
+.standard-sidebar-item svg {
+    width: 16px !important;
+    height: 16px !important;
+    color: rgba(255,255,255,0.45) !important;
+    flex-shrink: 0 !important;
+    transition: color var(--sibyl-transition-fast) !important;
+}
+
+.standard-sidebar-item:hover .sidebar-item-icon,
+.standard-sidebar-item:hover svg {
+    color: rgba(255,255,255,0.85) !important;
+}
+
+/* ── Sidebar Item Text ───────────────────────── */
+.sidebar-item-label,
+.standard-sidebar-item .item-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    color: inherit !important;
+    transition: opacity var(--sibyl-transition-slow);
+}
+
+/* ── Collapse Chevron ───────────────────────── */
+.sidebar-item-control .icon,
+.standard-sidebar-item .drop-icon {
+    width: 14px !important;
+    height: 14px !important;
+    color: rgba(255,255,255,0.3) !important;
+    transition: transform var(--sibyl-transition-base) !important;
+    flex-shrink: 0 !important;
+}
+
+.sidebar-item-container.opened > .standard-sidebar-item .drop-icon {
+    transform: rotate(90deg) !important;
+}
+
+/* ── Nested (Child) Items ───────────────────── */
+.nested-sidebar-items,
+.sidebar-child-item {
+    padding-left: var(--sibyl-space-8) !important;
+    overflow: hidden;
+}
+
+.nested-sidebar-items .standard-sidebar-item {
+    font-size: var(--sibyl-font-size-xs) !important;
+    padding: 5px var(--sibyl-space-3) !important;
+    color: rgba(255,255,255,0.5) !important;
+}
+
+.nested-sidebar-items .standard-sidebar-item:hover {
+    color: rgba(255,255,255,0.85) !important;
+}
+
+.nested-sidebar-items .standard-sidebar-item.selected {
+    background: rgba(91, 106, 240, 0.25) !important;
+    color: var(--sibyl-primary) !important;
+}
+
+/* ── Sidebar Divider ────────────────────────── */
+.sidebar-section-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: var(--sibyl-space-2) var(--sibyl-space-4);
+}
+
+/* ── Sidebar Bottom (pinned) ────────────────── */
+.sibyl-sidebar-footer {
+    margin-top: auto;
+    padding: var(--sibyl-space-3) var(--sibyl-space-2);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    flex-shrink: 0;
+}
+
+.sibyl-sidebar-footer .standard-sidebar-item {
+    color: rgba(255,255,255,0.4) !important;
+}
+
+/* ── App Switcher Pills ──────────────────────── */
+.app-list,
+.navbar-modules {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--sibyl-space-2);
+}
+
+/* ── Sidebar Toggle Button ──────────────────── */
+.sidebar-toggle-btn,
+.toggle-sidebar {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--sibyl-radius-sm);
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--sibyl-transition-fast);
+    flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+}
+
+/* ── Sidebar Tooltips (collapsed mode) ──────── */
+.sidebar-tooltip {
+    position: absolute;
+    left: calc(var(--sibyl-sidebar-collapsed) + 8px);
+    background: var(--sibyl-gray-800);
+    color: #fff;
+    font-size: var(--sibyl-font-size-xs);
+    font-weight: var(--sibyl-weight-medium);
+    padding: 4px 8px;
+    border-radius: var(--sibyl-radius-sm);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--sibyl-transition-fast);
+    z-index: 100;
+    box-shadow: var(--sibyl-shadow-md);
+}
+
+.sidebar-collapsed .standard-sidebar-item:hover .sidebar-tooltip {
+    opacity: 1;
+}
+
+/* Collapsed sidebar — hide text labels */
+.sidebar-collapsed .sidebar-item-label,
+.sidebar-collapsed .sidebar-section-header,
+.sidebar-collapsed .sibyl-brand-text {
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    overflow: hidden;
+}

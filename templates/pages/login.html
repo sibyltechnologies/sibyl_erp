@@ -1,0 +1,285 @@
+{% extends "templates/web.html" %}
+
+{% block title %}Sign In — Sibyl ERP{% endblock %}
+
+{% block head_include %}
+<link rel="stylesheet" href="/assets/sibyl_erp/css/sibyl-variables.css">
+<link rel="stylesheet" href="/assets/sibyl_erp/css/sibyl-web.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+/* ── Login Page Layout ──────────────────────── */
+body.login-page {
+    margin: 0;
+    padding: 0;
+    background: var(--sibyl-gray-900);
+    font-family: var(--sibyl-font-sans);
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+}
+
+.login-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Left Panel — Branding */
+.login-left {
+    flex: 1;
+    background: linear-gradient(135deg, #0E1329 0%, #1C2240 50%, #5B6AF0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-left::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: rgba(91, 106, 240, 0.15);
+    top: -200px;
+    right: -200px;
+    pointer-events: none;
+}
+
+.login-left::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(0, 201, 167, 0.08);
+    bottom: -100px;
+    left: -100px;
+    pointer-events: none;
+}
+
+.login-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.login-logo {
+    width: 72px;
+    height: 72px;
+}
+
+.login-brand-name {
+    font-size: 36px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.login-brand-tagline {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    margin: 0;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    max-width: 320px;
+}
+
+.login-features {
+    margin-top: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 360px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+}
+
+.login-feature-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* Right Panel — Form */
+.login-right {
+    width: 480px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 48px;
+    position: relative;
+}
+
+.login-form-header {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.login-form-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--sibyl-gray-900);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.01em;
+}
+
+.login-form-subtitle {
+    font-size: 14px;
+    color: var(--sibyl-gray-500);
+    margin: 0;
+}
+
+.login-form-body {
+    width: 100%;
+}
+
+/* Override Frappe form inputs */
+.login-right .form-group label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--sibyl-gray-600) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    margin-bottom: 6px !important;
+}
+
+.login-right .form-control {
+    height: 44px !important;
+    font-size: 14px !important;
+    border: 1.5px solid var(--sibyl-gray-200) !important;
+    border-radius: 10px !important;
+    padding: 0 14px !important;
+    transition: all 0.15s ease !important;
+}
+
+.login-right .form-control:focus {
+    border-color: var(--sibyl-primary) !important;
+    box-shadow: 0 0 0 3px rgba(91, 106, 240, 0.15) !important;
+}
+
+.login-right .btn-primary {
+    width: 100% !important;
+    height: 46px !important;
+    background: var(--sibyl-primary) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.01em;
+    transition: all 0.2s ease !important;
+    margin-top: 8px;
+}
+
+.login-right .btn-primary:hover {
+    background: var(--sibyl-primary-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(91, 106, 240, 0.35) !important;
+}
+
+/* Forgot password link */
+.login-right .forgot-password {
+    font-size: 13px !important;
+    color: var(--sibyl-primary) !important;
+    text-align: right;
+    display: block;
+    margin-top: 6px;
+}
+
+.login-footer {
+    margin-top: auto;
+    padding-top: 32px;
+    font-size: 12px;
+    color: var(--sibyl-gray-400);
+    text-align: center;
+    width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-left { display: none; }
+    .login-right { width: 100%; padding: 40px 24px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+
+    <!-- Left: Branding Panel -->
+    <div class="login-left">
+        <div class="login-brand">
+            <img src="/assets/sibyl_erp/img/sibyl-logo-white.svg" 
+                 class="login-logo" alt="Sibyl ERP">
+            <h1 class="login-brand-name">Sibyl ERP</h1>
+            <p class="login-brand-tagline">
+                The intelligent ERP built for modern businesses. 
+                Powerful, flexible, and yours.
+            </p>
+        </div>
+
+        <div class="login-features">
+            <div class="login-feature-item">
+                <div class="login-feature-icon">⚡</div>
+                <span>Real-time operations across every department</span>
+            </div>
+            <div class="login-feature-item">
+                <div class="login-feature-icon">🔒</div>
+                <span>Enterprise-grade security and access control</span>
+            </div>
+            <div class="login-feature-item">
+                <div class="login-feature-icon">📊</div>
+                <span>Powerful analytics and reporting built in</span>
+            </div>
+            <div class="login-feature-item">
+                <div class="login-feature-icon">🌐</div>
+                <span>Multi-company, multi-currency, multi-language</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Login Form -->
+    <div class="login-right">
+        <div class="login-form-header">
+            <h2 class="login-form-title">Welcome back</h2>
+            <p class="login-form-subtitle">Sign in to your Sibyl ERP workspace</p>
+        </div>
+
+        <div class="login-form-body">
+            <!-- Frappe injects the actual login form here -->
+            {{ login_html or "" }}
+        </div>
+
+        <div class="login-footer">
+            © {{ frappe.utils.now_datetime().year }} Sibyl Technologies. All rights reserved.
+        </div>
+    </div>
+
+</div>
+{% endblock %}

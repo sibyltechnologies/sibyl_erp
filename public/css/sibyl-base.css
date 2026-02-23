@@ -1,0 +1,227 @@
+/*
+ * SIBYL ERP — Base Styles
+ * Typography, resets, global elements
+ */
+
+/* ── Google Fonts (Inter + JetBrains Mono) ─── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Global Reset ──────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: var(--sibyl-font-size-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: var(--sibyl-font-sans) !important;
+    font-size: var(--sibyl-font-size-base);
+    line-height: var(--sibyl-leading-base);
+    color: var(--text-color);
+    background: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Typography ────────────────────────────── */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--sibyl-font-sans) !important;
+    font-weight: var(--sibyl-weight-semibold);
+    line-height: var(--sibyl-leading-tight);
+    color: var(--text-color);
+}
+
+h1, .h1 { font-size: var(--sibyl-font-size-3xl); }
+h2, .h2 { font-size: var(--sibyl-font-size-2xl); }
+h3, .h3 { font-size: var(--sibyl-font-size-xl); }
+h4, .h4 { font-size: var(--sibyl-font-size-lg); }
+h5, .h5 { font-size: var(--sibyl-font-size-md); }
+h6, .h6 { font-size: var(--sibyl-font-size-base); }
+
+.text-muted { color: var(--text-muted) !important; }
+
+/* Page Title */
+.page-title .title-text,
+.page-head .page-title {
+    font-size: var(--sibyl-font-size-xl) !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    color: var(--text-color) !important;
+    letter-spacing: -0.01em;
+}
+
+/* ── Links ─────────────────────────────────── */
+a {
+    color: var(--sibyl-primary);
+    text-decoration: none;
+    transition: color var(--sibyl-transition-fast);
+}
+a:hover { color: var(--sibyl-primary-dark); text-decoration: none; }
+
+/* ── Buttons ───────────────────────────────── */
+.btn {
+    font-family: var(--sibyl-font-sans) !important;
+    font-weight: var(--sibyl-weight-medium);
+    font-size: var(--sibyl-font-size-sm);
+    border-radius: var(--sibyl-radius-md);
+    transition: all var(--sibyl-transition-base);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+}
+
+.btn-primary {
+    background: var(--sibyl-primary) !important;
+    border-color: var(--sibyl-primary) !important;
+    color: #fff !important;
+}
+.btn-primary:hover {
+    background: var(--sibyl-primary-dark) !important;
+    border-color: var(--sibyl-primary-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(91, 106, 240, 0.35) !important;
+}
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-default,
+.btn-secondary {
+    background: transparent;
+    border: var(--sibyl-border);
+    color: var(--text-color);
+}
+.btn-default:hover,
+.btn-secondary:hover {
+    background: var(--bg-muted);
+    border-color: var(--sibyl-gray-300);
+}
+
+.btn-sm {
+    font-size: var(--sibyl-font-size-xs);
+    padding: 4px 10px;
+    border-radius: var(--sibyl-radius-sm);
+}
+
+/* ── Inputs & Form Controls ─────────────────── */
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+textarea,
+select {
+    font-family: var(--sibyl-font-sans) !important;
+    font-size: var(--sibyl-font-size-base) !important;
+    background: var(--input-bg) !important;
+    border: 1px solid var(--input-border) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    color: var(--text-color) !important;
+    transition: border-color var(--sibyl-transition-fast),
+                box-shadow var(--sibyl-transition-fast) !important;
+    padding: 6px 10px;
+}
+.form-control:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--input-focus-border) !important;
+    box-shadow: var(--input-focus-shadow) !important;
+    outline: none !important;
+}
+
+/* ── Cards ──────────────────────────────────── */
+.card,
+.frappe-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--sibyl-radius-lg);
+    box-shadow: var(--card-shadow);
+}
+
+/* ── Badges / Indicators ────────────────────── */
+.indicator,
+.indicator-pill {
+    border-radius: var(--sibyl-radius-full) !important;
+    font-size: var(--sibyl-font-size-xs) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    padding: 2px 8px !important;
+}
+
+/* ── Tables ─────────────────────────────────── */
+.datatable .dt-cell,
+.list-row,
+.dt-header-cell {
+    font-family: var(--sibyl-font-sans) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+}
+
+.datatable {
+    border-radius: var(--sibyl-radius-lg);
+    overflow: hidden;
+    border: var(--sibyl-border);
+}
+
+/* ── Dropdown Menus ─────────────────────────── */
+.dropdown-menu {
+    border: var(--sibyl-border);
+    border-radius: var(--sibyl-radius-md);
+    box-shadow: var(--sibyl-shadow-lg);
+    background: var(--card-bg);
+    padding: var(--sibyl-space-1) 0;
+}
+.dropdown-item {
+    font-size: var(--sibyl-font-size-sm);
+    color: var(--text-color);
+    padding: 6px 14px;
+    transition: background var(--sibyl-transition-fast);
+}
+.dropdown-item:hover {
+    background: var(--sibyl-primary-light);
+    color: var(--sibyl-primary);
+}
+
+/* ── Code / Monospace ───────────────────────── */
+code, pre, kbd {
+    font-family: var(--sibyl-font-mono) !important;
+    font-size: var(--sibyl-font-size-sm);
+}
+code {
+    background: var(--bg-muted);
+    padding: 1px 5px;
+    border-radius: var(--sibyl-radius-sm);
+    color: var(--sibyl-primary);
+}
+
+/* ── Utility Classes ────────────────────────── */
+.sibyl-flex { display: flex; }
+.sibyl-flex-center { display: flex; align-items: center; justify-content: center; }
+.sibyl-gap-2 { gap: var(--sibyl-space-2); }
+.sibyl-gap-3 { gap: var(--sibyl-space-3); }
+.sibyl-gap-4 { gap: var(--sibyl-space-4); }
+.sibyl-mt-auto { margin-top: auto; }
+
+/* ── Animations ─────────────────────────────── */
+@keyframes sibyl-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0);   }
+}
+@keyframes sibyl-slide-in-left {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0);     }
+}
+@keyframes sibyl-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.5; }
+}
+
+.sibyl-animate-in {
+    animation: sibyl-fade-in 0.2s ease forwards;
+}

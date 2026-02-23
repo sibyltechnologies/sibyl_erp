@@ -1,0 +1,286 @@
+/*
+ * SIBYL ERP — Desk & Workspace
+ * Main content area, workspace cards, shortcuts
+ */
+
+/* ── Main Layout ────────────────────────────── */
+.page-wrapper,
+.body-container,
+.main-section {
+    background: var(--bg-light-gray) !important;
+}
+
+.layout-main,
+.page-content,
+.frappe-app > .main-section {
+    background: var(--bg-light-gray) !important;
+    padding: 0 !important;
+}
+
+/* ── Workspace / Home Page ──────────────────── */
+.workspace-container,
+.desk-page {
+    padding: var(--sibyl-space-6) !important;
+    max-width: var(--sibyl-content-max-width);
+    margin: 0 auto;
+    animation: sibyl-fade-in 0.2s ease;
+}
+
+/* ── Workspace Section Headers ──────────────── */
+.workspace-section-header,
+.section-head {
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: var(--sibyl-space-3) !important;
+    margin-top: var(--sibyl-space-6) !important;
+    padding-bottom: var(--sibyl-space-2) !important;
+    border-bottom: var(--sibyl-border) !important;
+}
+
+/* ── Shortcut Cards (Desktop Icons) ─────────── */
+.workspace-shortcut-card,
+.desk-shortcut-card,
+.shortcut-widget-box {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: var(--sibyl-radius-lg) !important;
+    box-shadow: var(--sibyl-shadow-xs) !important;
+    padding: var(--sibyl-space-4) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--sibyl-space-2) !important;
+    cursor: pointer;
+    transition: all var(--sibyl-transition-base) !important;
+    text-decoration: none !important;
+    color: var(--text-color) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.workspace-shortcut-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--sibyl-primary);
+    opacity: 0;
+    transition: opacity var(--sibyl-transition-base);
+}
+
+.workspace-shortcut-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--sibyl-shadow-md) !important;
+    border-color: var(--sibyl-primary) !important;
+    color: var(--text-color) !important;
+    text-decoration: none !important;
+}
+
+.workspace-shortcut-card:hover::before {
+    opacity: 1;
+}
+
+/* Shortcut Icon */
+.shortcut-widget-icon,
+.workspace-shortcut-card .widget-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    background: var(--sibyl-primary-light) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.shortcut-widget-icon svg,
+.shortcut-widget-icon .icon {
+    width: 18px !important;
+    height: 18px !important;
+    color: var(--sibyl-primary) !important;
+}
+
+/* Shortcut Label */
+.shortcut-widget-label,
+.workspace-shortcut-card .widget-label {
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    color: var(--text-color) !important;
+    line-height: var(--sibyl-leading-tight) !important;
+}
+
+/* Shortcut Count / Stat */
+.shortcut-count,
+.widget-count {
+    font-size: var(--sibyl-font-size-xl) !important;
+    font-weight: var(--sibyl-weight-bold) !important;
+    color: var(--sibyl-primary) !important;
+    letter-spacing: -0.02em;
+}
+
+/* ── Number Cards / KPI Widgets ─────────────── */
+.number-card,
+.widget.number-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: var(--sibyl-radius-lg) !important;
+    box-shadow: var(--sibyl-shadow-xs) !important;
+    padding: var(--sibyl-space-5) !important;
+    transition: all var(--sibyl-transition-base) !important;
+}
+
+.number-card:hover {
+    box-shadow: var(--sibyl-shadow-md) !important;
+    transform: translateY(-1px) !important;
+}
+
+.number-card .number-card-count,
+.number-card .widget-count {
+    font-size: var(--sibyl-font-size-3xl) !important;
+    font-weight: var(--sibyl-weight-bold) !important;
+    color: var(--text-color) !important;
+    letter-spacing: -0.02em;
+}
+
+.number-card .number-card-label,
+.number-card .widget-label {
+    font-size: var(--sibyl-font-size-xs) !important;
+    color: var(--text-muted) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+}
+
+/* Color variants for number cards */
+.number-card.green { border-top: 3px solid var(--sibyl-success) !important; }
+.number-card.red   { border-top: 3px solid var(--sibyl-danger) !important; }
+.number-card.blue  { border-top: 3px solid var(--sibyl-info) !important; }
+.number-card.orange{ border-top: 3px solid var(--sibyl-warning) !important; }
+
+/* ── Quick List Widget ──────────────────────── */
+.quick-list-widget,
+.widget.links-widget-box {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: var(--sibyl-radius-lg) !important;
+    box-shadow: var(--sibyl-shadow-xs) !important;
+    overflow: hidden !important;
+}
+
+.quick-list-widget .widget-head,
+.links-widget-box .widget-head {
+    padding: var(--sibyl-space-4) !important;
+    border-bottom: var(--sibyl-border) !important;
+    font-weight: var(--sibyl-weight-semibold) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+}
+
+.quick-list-item {
+    padding: var(--sibyl-space-3) var(--sibyl-space-4) !important;
+    border-bottom: var(--sibyl-border) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    transition: background var(--sibyl-transition-fast) !important;
+    cursor: pointer;
+}
+
+.quick-list-item:last-child { border-bottom: none !important; }
+.quick-list-item:hover { background: var(--bg-muted) !important; }
+
+/* ── Charts Widget ──────────────────────────── */
+.chart-widget,
+.widget.chart-widget {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: var(--sibyl-radius-lg) !important;
+    box-shadow: var(--sibyl-shadow-xs) !important;
+    padding: var(--sibyl-space-5) !important;
+}
+
+/* ── Page Header ────────────────────────────── */
+.page-head {
+    background: var(--bg-color) !important;
+    border-bottom: var(--sibyl-border) !important;
+    padding: 0 var(--sibyl-space-6) !important;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+}
+
+.page-head .page-title {
+    display: flex;
+    align-items: center;
+    gap: var(--sibyl-space-3);
+    flex: 1;
+}
+
+/* ── Page Body ──────────────────────────────── */
+.page-body {
+    padding: var(--sibyl-space-5) var(--sibyl-space-6) !important;
+}
+
+/* ── Frappe Form Actions Bar ─────────────────── */
+.form-page .page-actions .btn,
+.page-actions .standard-actions .btn {
+    font-size: var(--sibyl-font-size-sm) !important;
+}
+
+/* ── Widget Grid ────────────────────────────── */
+.widget-group .grid-col {
+    animation: sibyl-fade-in 0.25s ease both;
+}
+
+.widget-group .grid-col:nth-child(1) { animation-delay: 0.00s; }
+.widget-group .grid-col:nth-child(2) { animation-delay: 0.04s; }
+.widget-group .grid-col:nth-child(3) { animation-delay: 0.08s; }
+.widget-group .grid-col:nth-child(4) { animation-delay: 0.12s; }
+.widget-group .grid-col:nth-child(5) { animation-delay: 0.16s; }
+.widget-group .grid-col:nth-child(6) { animation-delay: 0.20s; }
+
+/* ── Loading States ─────────────────────────── */
+.loading-indicator,
+.frappe-loading {
+    color: var(--sibyl-primary) !important;
+}
+
+/* Custom loading spinner */
+.sibyl-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--sibyl-primary-light);
+    border-top-color: var(--sibyl-primary);
+    border-radius: 50%;
+    animation: sibyl-spin 0.7s linear infinite;
+}
+
+@keyframes sibyl-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Empty State ────────────────────────────── */
+.empty-state,
+.no-result-message {
+    text-align: center;
+    padding: var(--sibyl-space-12) var(--sibyl-space-6);
+    color: var(--text-muted);
+}
+
+.empty-state .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: var(--sibyl-space-4);
+    opacity: 0.3;
+}
+
+.empty-state .empty-state-title {
+    font-size: var(--sibyl-font-size-lg);
+    font-weight: var(--sibyl-weight-semibold);
+    color: var(--text-color);
+    margin-bottom: var(--sibyl-space-2);
+}

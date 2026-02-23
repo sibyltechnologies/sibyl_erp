@@ -1,0 +1,274 @@
+/*
+ * SIBYL ERP — Navbar
+ * Top navigation bar complete override
+ */
+
+/* ── Main Navbar Container ──────────────────── */
+.navbar,
+.navbar.navbar-default {
+    background: var(--navbar-bg) !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    height: var(--sibyl-navbar-height) !important;
+    min-height: var(--sibyl-navbar-height) !important;
+    padding: 0 var(--sibyl-space-4) !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) !important;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-header {
+    height: var(--sibyl-navbar-height);
+    display: flex;
+    align-items: center;
+}
+
+/* ── Brand / Logo ───────────────────────────── */
+.navbar-brand,
+.navbar-brand:hover,
+.navbar-brand:focus {
+    padding: 0 !important;
+    height: var(--sibyl-navbar-height) !important;
+    display: flex !important;
+    align-items: center !important;
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.sibyl-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--sibyl-space-2);
+    padding: 0 var(--sibyl-space-3);
+    text-decoration: none !important;
+    height: var(--sibyl-navbar-height);
+}
+
+.sibyl-logo {
+    width: auto;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.sibyl-brand-text {
+    font-size: 15px;
+    font-weight: var(--sibyl-weight-semibold);
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+/* ── Navbar Collapse / Nav items ────────────── */
+.navbar-collapse {
+    height: var(--sibyl-navbar-height) !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+}
+
+.navbar-nav {
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    height: var(--sibyl-navbar-height) !important;
+    flex-direction: row !important;
+}
+
+.navbar-nav > li {
+    height: var(--sibyl-navbar-height);
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav > li > a {
+    color: rgba(255,255,255,0.65) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    font-weight: var(--sibyl-weight-medium) !important;
+    padding: 0 var(--sibyl-space-3) !important;
+    height: var(--sibyl-navbar-height) !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: color var(--sibyl-transition-fast) !important;
+    border-bottom: 2px solid transparent !important;
+}
+
+.navbar-nav > li > a:hover {
+    color: #fff !important;
+    background: transparent !important;
+}
+
+.navbar-nav > li.active > a,
+.navbar-nav > li > a:focus {
+    color: #fff !important;
+    background: transparent !important;
+    border-bottom-color: var(--sibyl-primary) !important;
+}
+
+/* ── Search Bar ─────────────────────────────── */
+.navbar-search,
+.navbar .search-area {
+    flex: 1;
+    max-width: 420px;
+    margin: 0 var(--sibyl-space-4);
+}
+
+.navbar .search-area .form-control,
+.navbar .search-area input {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+    border-radius: var(--sibyl-radius-full) !important;
+    font-size: var(--sibyl-font-size-sm) !important;
+    padding: 5px 14px 5px 36px !important;
+    transition: all var(--sibyl-transition-base) !important;
+    height: 32px !important;
+}
+
+.navbar .search-area .form-control::placeholder { color: rgba(255,255,255,0.35) !important; }
+
+.navbar .search-area .form-control:focus {
+    background: rgba(255,255,255,0.14) !important;
+    border-color: var(--sibyl-primary) !important;
+    box-shadow: 0 0 0 3px rgba(91, 106, 240, 0.25) !important;
+}
+
+/* Search icon */
+.navbar .search-area .search-icon,
+.navbar .awesomplete .search-icon {
+    color: rgba(255,255,255,0.4) !important;
+}
+
+/* ── Right-side Navbar icons ────────────────── */
+.navbar-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--sibyl-space-1) !important;
+    margin: 0 !important;
+}
+
+/* Icon buttons in navbar (notifications, help, etc.) */
+.navbar-right .nav-item-icon,
+.navbar-right > li > a {
+    width: 34px;
+    height: 34px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: var(--sibyl-radius-md);
+    color: rgba(255,255,255,0.65) !important;
+    padding: 0 !important;
+    transition: all var(--sibyl-transition-fast) !important;
+}
+
+.navbar-right .nav-item-icon:hover,
+.navbar-right > li > a:hover {
+    background: rgba(255,255,255,0.10) !important;
+    color: #fff !important;
+}
+
+/* Notification badge */
+.navbar-right .badge,
+.notifications-icon .badge {
+    background: var(--sibyl-danger) !important;
+    color: #fff !important;
+    font-size: 9px !important;
+    border-radius: var(--sibyl-radius-full) !important;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    border: 2px solid var(--navbar-bg);
+    font-weight: var(--sibyl-weight-bold);
+}
+
+/* ── Avatar / User button ───────────────────── */
+.navbar .avatar,
+.navbar .user-image {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: var(--sibyl-radius-full) !important;
+    border: 2px solid rgba(255,255,255,0.2);
+    object-fit: cover;
+}
+
+/* ── Navbar Dropdown ────────────────────────── */
+.navbar .dropdown-menu {
+    background: var(--card-bg) !important;
+    border: var(--sibyl-border) !important;
+    border-radius: var(--sibyl-radius-md) !important;
+    box-shadow: var(--sibyl-shadow-lg) !important;
+    padding: var(--sibyl-space-1) 0 !important;
+    margin-top: 6px !important;
+    min-width: 200px;
+    animation: sibyl-fade-in 0.15s ease !important;
+}
+
+.navbar .dropdown-menu .dropdown-item,
+.navbar .dropdown-menu li > a {
+    font-size: var(--sibyl-font-size-sm) !important;
+    color: var(--text-color) !important;
+    padding: 7px 14px !important;
+    display: flex;
+    align-items: center;
+    gap: var(--sibyl-space-2);
+}
+
+.navbar .dropdown-menu li > a:hover,
+.navbar .dropdown-menu .dropdown-item:hover {
+    background: var(--sibyl-primary-light) !important;
+    color: var(--sibyl-primary) !important;
+}
+
+.navbar .dropdown-menu .divider,
+.navbar .dropdown-menu .dropdown-divider {
+    border-color: var(--border-color) !important;
+    margin: var(--sibyl-space-1) 0 !important;
+}
+
+/* ── Breadcrumb Area (below navbar) ─────────── */
+.page-head {
+    background: var(--bg-color) !important;
+    border-bottom: var(--sibyl-border) !important;
+    padding: var(--sibyl-space-2) var(--sibyl-space-6) !important;
+}
+
+.breadcrumb {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: var(--sibyl-font-size-xs) !important;
+}
+
+.breadcrumb > li + li::before {
+    content: '/' !important;
+    color: var(--text-muted) !important;
+}
+
+.breadcrumb > li > a {
+    color: var(--text-muted) !important;
+}
+
+.breadcrumb > li > a:hover {
+    color: var(--sibyl-primary) !important;
+}
+
+/* ── Environment Banner ─────────────────────── */
+/* Used to show dev/staging indicator */
+.sibyl-env-banner {
+    background: var(--sibyl-warning);
+    color: #fff;
+    text-align: center;
+    font-size: var(--sibyl-font-size-xs);
+    font-weight: var(--sibyl-weight-semibold);
+    padding: 3px 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
