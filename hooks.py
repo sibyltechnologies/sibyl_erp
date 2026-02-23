@@ -24,8 +24,6 @@ brand_html = """
 </a>
 """
 
-# Title shown in browser tab
-app_title_in_browser = "Sibyl ERP"
 
 # ─────────────────────────────────────────────
 #  Asset Injection (ORDER MATTERS)
