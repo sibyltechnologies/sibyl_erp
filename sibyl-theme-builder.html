@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sibyl Theme Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --builder-bg:       #0C0E16;
+    --panel-bg:         #13151F;
+    --panel-border:     rgba(255,255,255,0.07);
+    --panel-hover:      rgba(255,255,255,0.04);
+    --text:             #E8EAF2;
+    --text-muted:       #6B7399;
+    --text-dim:         #3D4466;
+    --accent:           #5B6AF0;
+    --accent-glow:      rgba(91,106,240,0.25);
+    --success:          #2ECC71;
+    --danger:           #F0564A;
+    --warning:          #F5A623;
+    --section-gap:      24px;
+    --radius:           10px;
+    --font:             'DM Sans', sans-serif;
+    --mono:             'DM Mono', monospace;
+    --transition:       200ms cubic-bezier(0.4,0,0.2,1);
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font);
+    background: var(--builder-bg);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+/* ── Layout ───────────────────────────────── */
+.builder {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    grid-template-rows: 52px 1fr;
+    height: 100vh;
+    gap: 0;
+}
+
+/* ── Top Bar ──────────────────────────────── */
+.topbar {
+    grid-column: 1 / -1;
+    background: #0A0C13;
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 16px;
+    z-index: 100;
+}
+
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+.topbar-brand .logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+
+.topbar-title {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+.topbar-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.topbar-theme-name {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    min-width: 160px;
+    outline: none;
+}
+
+.topbar-theme-name:focus {
+    border-color: var(--accent);
+    background: rgba(91,106,240,0.08);
+}
+
+.btn-ghost {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--panel-border);
+    border-radius: 7px;
+    color: var(--text-muted);
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+
+.btn-primary {
+    background: var(--accent);
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.01em;
+}
+.btn-primary:hover {
+    background: #4755D4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px var(--accent-glow);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(46,204,113,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 4px rgba(46,204,113,0); }
+}
+
+/* ── Left Panel: Section Nav ──────────────── */
+.section-nav {
+    background: var(--panel-bg);
+    border-right: 1px solid var(--panel-border);
+    overflow-y: auto;
+    padding: 16px 0;
+}
+
+.section-nav-group {
+    padding: 0 12px;
+    margin-bottom: 4px;
+}
+
+.section-nav-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 8px 4px;
+}
+
+.section-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    border: 1px solid transparent;
+}
+.section-nav-item:hover { background: var(--panel-hover); color: var(--text); }
+.section-nav-item.active {
+    background: rgba(91,106,240,0.12);
+    color: var(--accent);
+    border-color: rgba(91,106,240,0.2);
+}
+.section-nav-item .nav-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
+
+/* ── Middle: Controls ─────────────────────── */
+.controls-panel {
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.controls-section {
+    display: none;
+    animation: fadeIn 0.15s ease;
+}
+.controls-section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+.controls-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+}
+.controls-section-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.control-group {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.control-group-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--panel-border);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(255,255,255,0.02);
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 16px;
+    gap: 16px;
+    border-bottom: 1px solid var(--panel-border);
+    transition: background var(--transition);
+}
+.control-row:last-child { border-bottom: none; }
+.control-row:hover { background: var(--panel-hover); }
+
+.control-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+}
+.control-label small {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 1px;
+}
+
+.control-input { flex-shrink: 0; }
+
+/* Color picker */
+.color-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+.color-input-wrap:hover { border-color: rgba(255,255,255,0.15); }
+.color-input-wrap:focus-within { border-color: var(--accent); }
+
+.color-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+input[type="color"] {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+}
+.color-hex {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 52px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: var(--text);
+}
+
+/* Range slider */
+.slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 99px;
+    outline: none;
+    cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 6px var(--accent-glow);
+    cursor: pointer;
+}
+.slider-value {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 28px;
+    text-align: right;
+}
+
+/* Select */
+select.control-select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 28px 5px 10px;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7399' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    transition: border-color var(--transition);
+    min-width: 140px;
+}
+select.control-select:focus { border-color: var(--accent); }
+
+/* Toggle */
+.toggle {
+    width: 36px;
+    height: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 99px;
+    position: relative;
+    cursor: pointer;
+    transition: background var(--transition);
+    flex-shrink: 0;
+}
+.toggle.on { background: var(--accent); }
+.toggle::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform var(--transition);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.toggle.on::after { transform: translateX(16px); }
+
+/* Font preview */
+.font-preview {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--panel-border);
+    transition: font-family 0.3s ease;
+}
+.font-preview small {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* Custom CSS editor */
+.css-editor {
+    width: 100%;
+    min-height: 200px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 14px;
+    color: #A8B0E0;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.7;
+    outline: none;
+    resize: vertical;
+    tab-size: 2;
+    transition: border-color var(--transition);
+}
+.css-editor:focus { border-color: var(--accent); }
+
+/* ── Right Panel: Preview ─────────────────── */
+.preview-panel {
+    background: #1A1D2E;
+    border-left: 1px solid var(--panel-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.preview-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+.preview-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.preview-modes {
+    display: flex;
+    gap: 4px;
+}
+.preview-mode-btn {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--text-muted);
+    background: transparent;
+    font-family: var(--font);
+    transition: all var(--transition);
+}
+.preview-mode-btn.active {
+    background: rgba(91,106,240,0.15);
+    border-color: rgba(91,106,240,0.3);
+    color: var(--accent);
+}
+
+.preview-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+/* Preview mockup components */
+.preview-mockup {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    background: var(--preview-desk-bg, #F8F9FC);
+}
+
+.preview-navbar {
+    height: var(--preview-navbar-h, 40px);
+    background: var(--preview-navbar-bg, #0E1329);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.preview-logo-mark {
+    width: 20px;
+    height: 20px;
+    background: var(--preview-primary, #5B6AF0);
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.preview-brand-text {
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.01em;
+}
+
+.preview-nav-dots {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+}
+.preview-nav-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.1);
+}
+
+.preview-content {
+    display: flex;
+    min-height: 200px;
+}
+
+.preview-sidebar {
+    width: var(--preview-sidebar-w, 80px);
+    background: var(--preview-sidebar-bg, #0E1329);
+    padding: 8px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.preview-sidebar-item {
+    height: 28px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 7px;
+    color: rgba(255,255,255,0.5);
+    font-size: 9px;
+}
+.preview-sidebar-item.active {
+    background: var(--preview-primary, #5B6AF0);
+    color: white;
+}
+.preview-sidebar-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.preview-main {
+    flex: 1;
+    padding: 12px;
+    background: var(--preview-desk-bg, #F8F9FC);
+}
+
+.preview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.preview-card {
+    background: var(--preview-card-bg, #FFFFFF);
+    border-radius: var(--preview-radius, 8px);
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 10px;
+    box-shadow: var(--preview-shadow);
+}
+
+.preview-card-num {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--preview-primary, #5B6AF0);
+    letter-spacing: -0.02em;
+}
+.preview-card-label {
+    font-size: 8px;
+    color: #9EA6BE;
+    margin-top: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.preview-table {
+    background: var(--preview-card-bg, #FFFFFF);
+    border-radius: var(--preview-radius, 8px);
+    border: 1px solid rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+.preview-table-header {
+    background: #F8F9FC;
+    padding: 6px 10px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.preview-table-th {
+    font-size: 8px;
+    font-weight: 600;
+    color: #9EA6BE;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+.preview-table-row {
+    padding: 6px 10px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 9px;
+    color: #4A5372;
+}
+.preview-table-row:last-child { border-bottom: none; }
+.preview-badge {
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 99px;
+    font-weight: 600;
+}
+.preview-badge.green { background: #ECFDF5; color: #059669; }
+.preview-badge.blue  { background: #EEF2FF; color: #4338CA; }
+
+.preview-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    background: var(--preview-primary, #5B6AF0);
+    color: white;
+    border-radius: var(--preview-btn-radius, 6px);
+    font-size: 9px;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+/* Colors grid */
+.color-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--panel-border);
+}
+.color-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: var(--text-muted);
+}
+.color-chip-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+}
+
+/* Save indicator */
+.save-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1A1D2E;
+    border: 1px solid var(--panel-border);
+    border-radius: 99px;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+}
+.save-indicator.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+</style>
+</head>
+<body>
+
+<div class="builder">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="topbar-brand">
+            <div class="logo-mark">S</div>
+            Sibyl
+            <span class="topbar-title">/ Theme Builder</span>
+        </div>
+
+        <div class="topbar-actions">
+            <div class="status-dot" title="Live preview active"></div>
+
+            <input type="text" 
+                   class="topbar-theme-name" 
+                   id="themeName" 
+                   value="Sibyl Default"
+                   placeholder="Theme name...">
+
+            <button class="btn-ghost" onclick="resetToDefaults()">↺ Reset</button>
+            <button class="btn-ghost" onclick="exportTheme()">⬇ Export CSS</button>
+            <button class="btn-ghost" onclick="importTheme()">⬆ Import</button>
+            <button class="btn-primary" onclick="saveTheme()">
+                <span>✓</span> Save & Apply
+            </button>
+        </div>
+    </header>
+
+    <!-- Left: Section Nav -->
+    <nav class="section-nav">
+        <div class="section-nav-group">
+            <div class="section-nav-label">Design</div>
+
+            <div class="section-nav-item active" onclick="showSection('branding')">
+                <span class="nav-icon">🏷️</span> Branding
+            </div>
+            <div class="section-nav-item" onclick="showSection('colors')">
+                <span class="nav-icon">🎨</span> Colors
+            </div>
+            <div class="section-nav-item" onclick="showSection('typography')">
+                <span class="nav-icon">✏️</span> Typography
+            </div>
+            <div class="section-nav-item" onclick="showSection('surfaces')">
+                <span class="nav-icon">🖥️</span> Surfaces
+            </div>
+            <div class="section-nav-item" onclick="showSection('layout')">
+                <span class="nav-icon">📐</span> Layout
+            </div>
+        </div>
+
+        <div class="section-nav-group">
+            <div class="section-nav-label">Components</div>
+
+            <div class="section-nav-item" onclick="showSection('navbar')">
+                <span class="nav-icon">⬆️</span> Navbar
+            </div>
+            <div class="section-nav-item" onclick="showSection('sidebar')">
+                <span class="nav-icon">◀️</span> Sidebar
+            </div>
+            <div class="section-nav-item" onclick="showSection('buttons')">
+                <span class="nav-icon">🔘</span> Buttons & Forms
+            </div>
+            <div class="section-nav-item" onclick="showSection('modules')">
+                <span class="nav-icon">🗂️</span> Module Colors
+            </div>
+        </div>
+
+        <div class="section-nav-group">
+            <div class="section-nav-label">Advanced</div>
+
+            <div class="section-nav-item" onclick="showSection('darkmode')">
+                <span class="nav-icon">🌙</span> Dark Mode
+            </div>
+            <div class="section-nav-item" onclick="showSection('css')">
+                <span class="nav-icon">⚡</span> Custom CSS
+            </div>
+        </div>
+    </nav>
+
+    <!-- Middle: Controls -->
+    <main class="controls-panel">
+
+        <!-- Branding -->
+        <div class="controls-section active" id="section-branding">
+            <div class="controls-section-title">Branding</div>
+            <div class="controls-section-desc">Logo, app name, and identity elements.</div>
+
+            <div class="control-group">
+                <div class="control-group-header">App Identity</div>
+                <div class="control-row">
+                    <div class="control-label">App Name <small>Shown in navbar and browser tab</small></div>
+                    <div class="control-input">
+                        <input type="text" class="topbar-theme-name" id="appName" value="Sibyl ERP" style="min-width:130px" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Show Name Next to Logo</div>
+                    <div class="control-input">
+                        <div class="toggle on" id="toggle-showText" onclick="toggleControl('showText', this)"></div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Brand Text Size <small>Navbar logo text (px)</small></div>
+                    <div class="control-input">
+                        <div class="slider-wrap">
+                            <input type="range" min="11" max="20" value="15" id="brandFontSize"
+                                oninput="document.getElementById('brandFontSizeVal').textContent=this.value+'px';updatePreview()">
+                            <span class="slider-value" id="brandFontSizeVal">15px</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="controls-section" id="section-colors">
+            <div class="controls-section-title">Colors</div>
+            <div class="controls-section-desc">Brand palette — changes propagate everywhere instantly.</div>
+
+            <div class="control-group">
+                <div class="control-group-header">Primary Palette</div>
+
+                <div class="control-row">
+                    <div class="control-label">Primary <small>Main action color</small></div>
+                    <div class="control-input" id="wrap-primary">
+                        <div class="color-input-wrap" onclick="openPicker('primary')">
+                            <div class="color-swatch" id="swatch-primary" style="background:#5B6AF0"></div>
+                            <input type="color" id="picker-primary" value="#5B6AF0" oninput="updateColor('primary', this.value)">
+                            <input class="color-hex" id="hex-primary" value="#5B6AF0" maxlength="7"
+                                oninput="syncColorFromHex('primary', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <div class="control-label">Primary Dark <small>Hover states</small></div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('primaryDark')">
+                            <div class="color-swatch" id="swatch-primaryDark" style="background:#4755D4"></div>
+                            <input type="color" id="picker-primaryDark" value="#4755D4" oninput="updateColor('primaryDark', this.value)">
+                            <input class="color-hex" id="hex-primaryDark" value="#4755D4" maxlength="7"
+                                oninput="syncColorFromHex('primaryDark', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <div class="control-label">Primary Light <small>Backgrounds & tints</small></div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('primaryLight')">
+                            <div class="color-swatch" id="swatch-primaryLight" style="background:#EEF0FD"></div>
+                            <input type="color" id="picker-primaryLight" value="#EEF0FD" oninput="updateColor('primaryLight', this.value)">
+                            <input class="color-hex" id="hex-primaryLight" value="#EEF0FD" maxlength="7"
+                                oninput="syncColorFromHex('primaryLight', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-row">
+                    <div class="control-label">Accent <small>Secondary highlights</small></div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('accent')">
+                            <div class="color-swatch" id="swatch-accent" style="background:#00C9A7"></div>
+                            <input type="color" id="picker-accent" value="#00C9A7" oninput="updateColor('accent', this.value)">
+                            <input class="color-hex" id="hex-accent" value="#00C9A7" maxlength="7"
+                                oninput="syncColorFromHex('accent', this.value)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-group-header">Semantic Colors</div>
+                <div class="control-row">
+                    <div class="control-label">Success</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('success')">
+                            <div class="color-swatch" id="swatch-success" style="background:#2ECC71"></div>
+                            <input type="color" id="picker-success" value="#2ECC71" oninput="updateColor('success', this.value)">
+                            <input class="color-hex" id="hex-success" value="#2ECC71" maxlength="7"
+                                oninput="syncColorFromHex('success', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Danger</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('danger')">
+                            <div class="color-swatch" id="swatch-danger" style="background:#F0564A"></div>
+                            <input type="color" id="picker-danger" value="#F0564A" oninput="updateColor('danger', this.value)">
+                            <input class="color-hex" id="hex-danger" value="#F0564A" maxlength="7"
+                                oninput="syncColorFromHex('danger', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Warning</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('warning')">
+                            <div class="color-swatch" id="swatch-warning" style="background:#F5A623"></div>
+                            <input type="color" id="picker-warning" value="#F5A623" oninput="updateColor('warning', this.value)">
+                            <input class="color-hex" id="hex-warning" value="#F5A623" maxlength="7"
+                                oninput="syncColorFromHex('warning', this.value)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="controls-section" id="section-typography">
+            <div class="controls-section-title">Typography</div>
+            <div class="controls-section-desc">Font family, size, and spacing across the entire UI.</div>
+
+            <div class="control-group">
+                <div class="control-group-header">Font</div>
+                <div class="control-row">
+                    <div class="control-label">Font Family</div>
+                    <div class="control-input">
+                        <select class="control-select" id="fontFamily" onchange="updateFont()">
+                            <option value="Inter">Inter</option>
+                            <option value="DM Sans">DM Sans</option>
+                            <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+                            <option value="Manrope">Manrope</option>
+                            <option value="Rubik">Rubik</option>
+                            <option value="Nunito">Nunito</option>
+                            <option value="Poppins">Poppins</option>
+                            <option value="General Sans">General Sans</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Base Font Size</div>
+                    <div class="control-input">
+                        <div class="slider-wrap">
+                            <input type="range" min="11" max="16" value="13" id="fontSize"
+                                oninput="document.getElementById('fontSizeVal').textContent=this.value+'px';updatePreview()">
+                            <span class="slider-value" id="fontSizeVal">13px</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Line Height</div>
+                    <div class="control-input">
+                        <div class="slider-wrap">
+                            <input type="range" min="13" max="20" value="15" step="1" id="lineHeight"
+                                oninput="document.getElementById('lineHeightVal').textContent=(this.value/10).toFixed(1);updatePreview()">
+                            <span class="slider-value" id="lineHeightVal">1.5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="font-preview" id="fontPreview">
+                    The quick brown fox jumps over the lazy dog
+                    <small>ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Surfaces -->
+        <div class="controls-section" id="section-surfaces">
+            <div class="controls-section-title">Surfaces</div>
+            <div class="controls-section-desc">Background colors for every UI layer.</div>
+
+            <div class="control-group">
+                <div class="control-group-header">Background Layers</div>
+                <div class="control-row">
+                    <div class="control-label">Navbar Background</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('navbarBg')">
+                            <div class="color-swatch" id="swatch-navbarBg" style="background:#0E1329"></div>
+                            <input type="color" id="picker-navbarBg" value="#0E1329" oninput="updateColor('navbarBg', this.value)">
+                            <input class="color-hex" id="hex-navbarBg" value="#0E1329" maxlength="7" oninput="syncColorFromHex('navbarBg', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Sidebar Background</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('sidebarBg')">
+                            <div class="color-swatch" id="swatch-sidebarBg" style="background:#0E1329"></div>
+                            <input type="color" id="picker-sidebarBg" value="#0E1329" oninput="updateColor('sidebarBg', this.value)">
+                            <input class="color-hex" id="hex-sidebarBg" value="#0E1329" maxlength="7" oninput="syncColorFromHex('sidebarBg', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Desk / Content Area</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('deskBg')">
+                            <div class="color-swatch" id="swatch-deskBg" style="background:#F8F9FC"></div>
+                            <input type="color" id="picker-deskBg" value="#F8F9FC" oninput="updateColor('deskBg', this.value)">
+                            <input class="color-hex" id="hex-deskBg" value="#F8F9FC" maxlength="7" oninput="syncColorFromHex('deskBg', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Card Background</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('cardBg')">
+                            <div class="color-swatch" id="swatch-cardBg" style="background:#FFFFFF"></div>
+                            <input type="color" id="picker-cardBg" value="#FFFFFF" oninput="updateColor('cardBg', this.value)">
+                            <input class="color-hex" id="hex-cardBg" value="#FFFFFF" maxlength="7" oninput="syncColorFromHex('cardBg', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Card Shadow</div>
+                    <div class="control-input">
+                        <select class="control-select" id="cardShadow" onchange="updatePreview()">
+                            <option value="None">None</option>
+                            <option value="Subtle" selected>Subtle</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Strong">Strong</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Layout -->
+        <div class="controls-section" id="section-layout">
+            <div class="controls-section-title">Layout</div>
+            <div class="controls-section-desc">Sizing, spacing, and radius values.</div>
+
+            <div class="control-group">
+                <div class="control-group-header">Dimensions</div>
+                <div class="control-row">
+                    <div class="control-label">Sidebar Width</div>
+                    <div class="control-input">
+                        <div class="slider-wrap">
+                            <input type="range" min="160" max="300" value="220" id="sidebarWidth"
+                                oninput="document.getElementById('sidebarWidthVal').textContent=this.value+'px';updatePreview()">
+                            <span class="slider-value" id="sidebarWidthVal">220px</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Navbar Height</div>
+                    <div class="control-input">
+                        <div class="slider-wrap">
+                            <input type="range" min="40" max="64" value="48" id="navbarHeight"
+                                oninput="document.getElementById('navbarHeightVal').textContent=this.value+'px';updatePreview()">
+                            <span class="slider-value" id="navbarHeightVal">48px</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Border Radius</div>
+                    <div class="control-input">
+                        <div class="slider-wrap">
+                            <input type="range" min="0" max="20" value="8" id="borderRadius"
+                                oninput="document.getElementById('borderRadiusVal').textContent=this.value+'px';updatePreview()">
+                            <span class="slider-value" id="borderRadiusVal">8px</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Enable Animations</div>
+                    <div class="control-input">
+                        <div class="toggle on" id="toggle-animations" onclick="toggleControl('animations', this)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar -->
+        <div class="controls-section" id="section-navbar">
+            <div class="controls-section-title">Navbar</div>
+            <div class="controls-section-desc">Top navigation bar style.</div>
+            <div class="control-group">
+                <div class="control-group-header">Style</div>
+                <div class="control-row">
+                    <div class="control-label">Navbar Style</div>
+                    <div class="control-input">
+                        <select class="control-select" id="navbarStyle" onchange="updatePreview()">
+                            <option value="Dark" selected>Dark</option>
+                            <option value="Light">Light</option>
+                            <option value="Primary Color">Primary Color</option>
+                            <option value="Glass">Glass</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="controls-section" id="section-sidebar">
+            <div class="controls-section-title">Sidebar</div>
+            <div class="controls-section-desc">Left navigation panel style.</div>
+            <div class="control-group">
+                <div class="control-group-header">Style</div>
+                <div class="control-row">
+                    <div class="control-label">Sidebar Style</div>
+                    <div class="control-input">
+                        <select class="control-select" id="sidebarStyle" onchange="updatePreview()">
+                            <option value="Dark" selected>Dark</option>
+                            <option value="Light">Light</option>
+                            <option value="Colored">Colored (Primary)</option>
+                            <option value="Glass">Glass</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="controls-section" id="section-buttons">
+            <div class="controls-section-title">Buttons & Forms</div>
+            <div class="controls-section-desc">Button shape and form input styling.</div>
+            <div class="control-group">
+                <div class="control-group-header">Button Style</div>
+                <div class="control-row">
+                    <div class="control-label">Button Shape</div>
+                    <div class="control-input">
+                        <select class="control-select" id="buttonStyle" onchange="updatePreview()">
+                            <option value="Rounded" selected>Rounded</option>
+                            <option value="Sharp">Sharp</option>
+                            <option value="Pill">Pill</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Colors -->
+        <div class="controls-section" id="section-modules">
+            <div class="controls-section-title">Module Colors</div>
+            <div class="controls-section-desc">Assign distinct colors to each ERP module for quick recognition.</div>
+            <div class="control-group">
+                <div class="control-group-header">Module Palette</div>
+                <div id="moduleColorRows">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Dark Mode -->
+        <div class="controls-section" id="section-darkmode">
+            <div class="controls-section-title">Dark Mode</div>
+            <div class="controls-section-desc">Dark theme override values. Users can toggle dark mode with Cmd+Shift+D.</div>
+            <div class="control-group">
+                <div class="control-group-header">Dark Mode Settings</div>
+                <div class="control-row">
+                    <div class="control-label">Enable Dark Mode Toggle</div>
+                    <div class="control-input">
+                        <div class="toggle" id="toggle-darkmode" onclick="toggleControl('darkmode', this)"></div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Dark Primary Color</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('darkPrimary')">
+                            <div class="color-swatch" id="swatch-darkPrimary" style="background:#7B8BF5"></div>
+                            <input type="color" id="picker-darkPrimary" value="#7B8BF5" oninput="updateColor('darkPrimary', this.value)">
+                            <input class="color-hex" id="hex-darkPrimary" value="#7B8BF5" maxlength="7" oninput="syncColorFromHex('darkPrimary', this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Dark Desk Background</div>
+                    <div class="control-input">
+                        <div class="color-input-wrap" onclick="openPicker('darkDeskBg')">
+                            <div class="color-swatch" id="swatch-darkDeskBg" style="background:#0F1117"></div>
+                            <input type="color" id="picker-darkDeskBg" value="#0F1117" oninput="updateColor('darkDeskBg', this.value)">
+                            <input class="color-hex" id="hex-darkDeskBg" value="#0F1117" maxlength="7" oninput="syncColorFromHex('darkDeskBg', this.value)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom CSS -->
+        <div class="controls-section" id="section-css">
+            <div class="controls-section-title">Custom CSS</div>
+            <div class="controls-section-desc">Advanced: inject CSS that overrides everything. Full power, full responsibility.</div>
+            <div class="control-group">
+                <div class="control-group-header">CSS Editor</div>
+                <div style="padding:12px">
+                    <textarea class="css-editor" id="customCss" 
+                        placeholder="/* Write any CSS here — injected after all theme rules */
+.navbar { }
+.layout-side-section { }
+"
+                        oninput="updatePreview()"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Right: Preview -->
+    <aside class="preview-panel">
+        <div class="preview-header">
+            <span class="preview-title">Live Preview</span>
+            <div class="preview-modes">
+                <button class="preview-mode-btn active" onclick="setPreviewMode('desktop', this)">Desktop</button>
+                <button class="preview-mode-btn" onclick="setPreviewMode('compact', this)">Compact</button>
+            </div>
+        </div>
+
+        <div class="preview-body">
+            <div class="preview-mockup" id="previewMockup">
+
+                <!-- Navbar -->
+                <div class="preview-navbar" id="previewNavbar">
+                    <div class="preview-logo-mark" id="previewLogoMark"></div>
+                    <span class="preview-brand-text" id="previewBrandText">Sibyl ERP</span>
+                    <div class="preview-nav-dots">
+                        <div class="preview-nav-dot"></div>
+                        <div class="preview-nav-dot"></div>
+                        <div class="preview-nav-dot"></div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="preview-content">
+
+                    <!-- Sidebar -->
+                    <div class="preview-sidebar" id="previewSidebar">
+                        <div class="preview-sidebar-item active" id="previewSidebarActive">
+                            <div class="preview-sidebar-icon"></div>
+                            <span style="font-size:9px">Dashboard</span>
+                        </div>
+                        <div class="preview-sidebar-item">
+                            <div class="preview-sidebar-icon"></div>
+                            <span style="font-size:9px">Accounts</span>
+                        </div>
+                        <div class="preview-sidebar-item">
+                            <div class="preview-sidebar-icon"></div>
+                            <span style="font-size:9px">Selling</span>
+                        </div>
+                        <div class="preview-sidebar-item">
+                            <div class="preview-sidebar-icon"></div>
+                            <span style="font-size:9px">Stock</span>
+                        </div>
+                        <div class="preview-sidebar-item">
+                            <div class="preview-sidebar-icon"></div>
+                            <span style="font-size:9px">CRM</span>
+                        </div>
+                    </div>
+
+                    <!-- Main -->
+                    <div class="preview-main" id="previewMain">
+                        <div class="preview-cards">
+                            <div class="preview-card" id="previewCard1">
+                                <div class="preview-card-num" id="previewCardNum1">PKR 2.4M</div>
+                                <div class="preview-card-label">Revenue</div>
+                            </div>
+                            <div class="preview-card">
+                                <div class="preview-card-num" id="previewCardNum2">142</div>
+                                <div class="preview-card-label">Orders</div>
+                            </div>
+                            <div class="preview-card">
+                                <div class="preview-card-num" id="previewCardNum3">98%</div>
+                                <div class="preview-card-label">Paid</div>
+                            </div>
+                        </div>
+
+                        <div class="preview-table" id="previewTable">
+                            <div class="preview-table-header">
+                                <span class="preview-table-th">Invoice</span>
+                                <span class="preview-table-th">Customer</span>
+                                <span class="preview-table-th">Status</span>
+                            </div>
+                            <div class="preview-table-row">
+                                <span>INV-0042</span>
+                                <span>Al-Fatah</span>
+                                <span class="preview-badge green">Paid</span>
+                            </div>
+                            <div class="preview-table-row">
+                                <span>INV-0043</span>
+                                <span>Metro Store</span>
+                                <span class="preview-badge blue">Draft</span>
+                            </div>
+                            <div class="preview-table-row">
+                                <span>INV-0044</span>
+                                <span>Packages Ltd</span>
+                                <span class="preview-badge green">Paid</span>
+                            </div>
+                        </div>
+
+                        <div class="preview-btn" id="previewBtn">+ New Invoice</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Chips -->
+            <div class="color-chips" id="colorChips"></div>
+        </div>
+    </aside>
+</div>
+
+<!-- Save Indicator -->
+<div class="save-indicator" id="saveIndicator">
+    <div class="status-dot"></div>
+    <span id="saveText">Saved & applied to Sibyl ERP</span>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+const state = {
+    primary:     '#5B6AF0',
+    primaryDark: '#4755D4',
+    primaryLight:'#EEF0FD',
+    accent:      '#00C9A7',
+    success:     '#2ECC71',
+    danger:      '#F0564A',
+    warning:     '#F5A623',
+    navbarBg:    '#0E1329',
+    sidebarBg:   '#0E1329',
+    deskBg:      '#F8F9FC',
+    cardBg:      '#FFFFFF',
+    darkPrimary: '#7B8BF5',
+    darkDeskBg:  '#0F1117',
+    showText:    true,
+    animations:  true,
+    darkmode:    false,
+};
+
+const modules = [
+    { name: 'Accounts',      color: '#3498DB' },
+    { name: 'Selling',       color: '#2ECC71' },
+    { name: 'Buying',        color: '#E67E22' },
+    { name: 'Stock',         color: '#9B59B6' },
+    { name: 'CRM',           color: '#E91E63' },
+    { name: 'HR',            color: '#00BCD4' },
+    { name: 'Projects',      color: '#FF9800' },
+    { name: 'Assets',        color: '#795548' },
+    { name: 'Manufacturing', color: '#607D8B' },
+];
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    buildModuleColorRows();
+    updatePreview();
+    updateColorChips();
+});
+
+// ═══════════════════════════════════════════
+//  SECTION NAV
+// ═══════════════════════════════════════════
+function showSection(id) {
+    document.querySelectorAll('.controls-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.section-nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('section-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+//  COLOR CONTROLS
+// ═══════════════════════════════════════════
+function openPicker(key) {
+    document.getElementById('picker-' + key).click();
+}
+
+function updateColor(key, value) {
+    state[key] = value;
+    document.getElementById('swatch-' + key).style.background = value;
+    document.getElementById('hex-' + key).value = value;
+    updatePreview();
+    updateColorChips();
+}
+
+function syncColorFromHex(key, value) {
+    if (/^#[0-9A-Fa-f]{6}$/.test(value)) {
+        state[key] = value;
+        document.getElementById('swatch-' + key).style.background = value;
+        document.getElementById('picker-' + key).value = value;
+        updatePreview();
+    }
+}
+
+// ═══════════════════════════════════════════
+//  TOGGLES
+// ═══════════════════════════════════════════
+function toggleControl(key, el) {
+    state[key] = !state[key];
+    el.classList.toggle('on', state[key]);
+    updatePreview();
+}
+
+// ═══════════════════════════════════════════
+//  FONT
+// ═══════════════════════════════════════════
+const fontStacks = {
+    'Inter':             "'Inter', sans-serif",
+    'DM Sans':           "'DM Sans', sans-serif",
+    'Plus Jakarta Sans': "'Plus Jakarta Sans', sans-serif",
+    'Manrope':           "'Manrope', sans-serif",
+    'Rubik':             "'Rubik', sans-serif",
+    'Nunito':            "'Nunito', sans-serif",
+    'Poppins':           "'Poppins', sans-serif",
+    'General Sans':      "'General Sans', sans-serif",
+};
+
+function updateFont() {
+    const font = document.getElementById('fontFamily').value;
+    const stack = fontStacks[font] || "'Inter', sans-serif";
+    document.getElementById('fontPreview').style.fontFamily = stack;
+    updatePreview();
+}
+
+// ═══════════════════════════════════════════
+//  MODULE COLORS
+// ═══════════════════════════════════════════
+function buildModuleColorRows() {
+    const container = document.getElementById('moduleColorRows');
+    container.innerHTML = modules.map((m, i) => `
+        <div class="control-row">
+            <div class="control-label">${m.name}</div>
+            <div class="control-input">
+                <div class="color-input-wrap" onclick="openPicker('module${i}')">
+                    <div class="color-swatch" id="swatch-module${i}" style="background:${m.color}"></div>
+                    <input type="color" id="picker-module${i}" value="${m.color}" 
+                        oninput="updateModuleColor(${i}, this.value)">
+                    <input class="color-hex" id="hex-module${i}" value="${m.color}" maxlength="7"
+                        oninput="if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){updateModuleColor(${i},this.value)}">
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateModuleColor(i, value) {
+    modules[i].color = value;
+    document.getElementById('swatch-module' + i).style.background = value;
+    document.getElementById('hex-module' + i).value = value;
+}
+
+// ═══════════════════════════════════════════
+//  LIVE PREVIEW UPDATE
+// ═══════════════════════════════════════════
+function updatePreview() {
+    const primary    = state.primary;
+    const navbarBg   = getEffectiveNavbarBg();
+    const sidebarBg  = getEffectiveSidebarBg();
+    const deskBg     = state.deskBg;
+    const cardBg     = state.cardBg;
+    const radius     = document.getElementById('borderRadius').value;
+    const sidebarW   = document.getElementById('sidebarWidth').value;
+    const navbarH    = document.getElementById('navbarHeight').value;
+    const btnStyle   = document.getElementById('buttonStyle').value;
+    const appName    = document.getElementById('appName').value;
+    const showText   = state.showText;
+
+    const btnRadius = btnStyle === 'Pill' ? '99px'
+                    : btnStyle === 'Sharp' ? '2px'
+                    : radius + 'px';
+
+    const shadowMap = {
+        'None':   'none',
+        'Subtle': '0 1px 4px rgba(14,19,41,0.06)',
+        'Medium': '0 4px 16px rgba(14,19,41,0.10)',
+        'Strong': '0 8px 32px rgba(14,19,41,0.18)',
+    };
+    const shadow = shadowMap[document.getElementById('cardShadow').value];
+
+    // Update preview elements
+    document.getElementById('previewNavbar').style.background = navbarBg;
+    document.getElementById('previewNavbar').style.height = Math.round(navbarH * 0.8) + 'px';
+    document.getElementById('previewLogoMark').style.background = primary;
+    document.getElementById('previewBrandText').textContent = showText ? appName : '';
+    document.getElementById('previewSidebar').style.background = sidebarBg;
+    document.getElementById('previewSidebar').style.width = Math.round(sidebarW * 0.36) + 'px';
+    document.getElementById('previewSidebarActive').style.background = primary;
+    document.getElementById('previewMain').style.background = deskBg;
+
+    const cards = ['previewCard1'];
+    document.querySelectorAll('.preview-card').forEach(c => {
+        c.style.background = cardBg;
+        c.style.borderRadius = Math.round(radius * 0.7) + 'px';
+        c.style.boxShadow = shadow;
+    });
+    document.querySelectorAll('.preview-card-num').forEach(n => {
+        n.style.color = primary;
+    });
+    document.getElementById('previewTable').style.background = cardBg;
+    document.getElementById('previewTable').style.borderRadius = Math.round(radius * 0.7) + 'px';
+
+    const btn = document.getElementById('previewBtn');
+    btn.style.background = primary;
+    btn.style.borderRadius = btnRadius;
+
+    // Font
+    const fontStack = fontStacks[document.getElementById('fontFamily').value] || "'Inter',sans-serif";
+    document.getElementById('previewMockup').style.fontFamily = fontStack;
+}
+
+function getEffectiveNavbarBg() {
+    const style = document.getElementById('navbarStyle').value;
+    if (style === 'Light') return '#FFFFFF';
+    if (style === 'Primary Color') return state.primary;
+    if (style === 'Glass') return 'rgba(14,19,41,0.7)';
+    return state.navbarBg;
+}
+
+function getEffectiveSidebarBg() {
+    const style = document.getElementById('sidebarStyle').value;
+    if (style === 'Light') return '#FFFFFF';
+    if (style === 'Colored') return state.primary;
+    return state.sidebarBg;
+}
+
+function updateColorChips() {
+    const chips = [
+        { label: 'Primary', color: state.primary },
+        { label: 'Accent',  color: state.accent  },
+        { label: 'Success', color: state.success  },
+        { label: 'Danger',  color: state.danger   },
+        { label: 'Warning', color: state.warning  },
+    ];
+    document.getElementById('colorChips').innerHTML = chips.map(c => `
+        <div class="color-chip">
+            <div class="color-chip-swatch" style="background:${c.color}"></div>
+            ${c.label}
+        </div>
+    `).join('');
+}
+
+function setPreviewMode(mode, btn) {
+    document.querySelectorAll('.preview-mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const mockup = document.getElementById('previewMockup');
+    if (mode === 'compact') {
+        mockup.style.transform = 'scale(0.85)';
+        mockup.style.transformOrigin = 'top center';
+    } else {
+        mockup.style.transform = '';
+    }
+}
+
+// ═══════════════════════════════════════════
+//  SAVE / EXPORT / IMPORT
+// ═══════════════════════════════════════════
+function saveTheme() {
+    const name = document.getElementById('themeName').value || 'Sibyl Default';
+    showSaveIndicator(`Theme "${name}" saved & applied`);
+
+    // In full Frappe integration, this calls:
+    // frappe.call({ method: 'sibyl_erp.doctype.sibyl_theme.sibyl_theme.save_theme_from_builder', args: { ... } })
+    console.log('Theme saved:', getThemeData());
+}
+
+function getThemeData() {
+    return {
+        name:          document.getElementById('themeName').value,
+        app_name:      document.getElementById('appName').value,
+        primary_color: state.primary,
+        primary_dark:  state.primaryDark,
+        primary_light: state.primaryLight,
+        accent_color:  state.accent,
+        success_color: state.success,
+        danger_color:  state.danger,
+        warning_color: state.warning,
+        navbar_bg:     state.navbarBg,
+        sidebar_bg:    state.sidebarBg,
+        desk_bg:       state.deskBg,
+        card_bg:       state.cardBg,
+        font_family:   document.getElementById('fontFamily').value,
+        font_size_base:document.getElementById('fontSize').value,
+        border_radius: document.getElementById('borderRadius').value,
+        sidebar_width: document.getElementById('sidebarWidth').value,
+        navbar_height: document.getElementById('navbarHeight').value,
+        card_shadow:   document.getElementById('cardShadow').value,
+        sidebar_style: document.getElementById('sidebarStyle').value,
+        navbar_style:  document.getElementById('navbarStyle').value,
+        button_style:  document.getElementById('buttonStyle').value,
+        enable_animations: state.animations,
+        enable_dark_mode:  state.darkmode,
+        show_brand_text:   state.showText,
+        dark_primary:  state.darkPrimary,
+        dark_desk_bg:  state.darkDeskBg,
+        custom_css:    document.getElementById('customCss').value,
+        module_colors: modules,
+    };
+}
+
+function exportTheme() {
+    const data = getThemeData();
+    const css = generateCSS(data);
+    const blob = new Blob([css], { type: 'text/css' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sibyl-theme-${data.name.toLowerCase().replace(/\s+/g, '-')}.css`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showSaveIndicator('CSS exported');
+}
+
+function importTheme() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = e => {
+        const reader = new FileReader();
+        reader.onload = ev => {
+            try {
+                const data = JSON.parse(ev.target.result);
+                applyThemeData(data);
+                showSaveIndicator('Theme imported');
+            } catch {
+                alert('Invalid theme file.');
+            }
+        };
+        reader.readAsText(e.target.files[0]);
+    };
+    input.click();
+}
+
+function resetToDefaults() {
+    if (!confirm('Reset all theme settings to Sibyl defaults?')) return;
+    location.reload();
+}
+
+function generateCSS(d) {
+    return `/* Sibyl ERP Theme: ${d.name} */
+:root {
+    --sibyl-primary:       ${d.primary_color};
+    --sibyl-primary-dark:  ${d.primary_dark};
+    --sibyl-primary-light: ${d.primary_light};
+    --sibyl-accent:        ${d.accent_color};
+    --sibyl-success:       ${d.success_color};
+    --sibyl-danger:        ${d.danger_color};
+    --sibyl-warning:       ${d.warning_color};
+    --sibyl-navbar-bg:     ${d.navbar_bg};
+    --sibyl-sidebar-bg:    ${d.sidebar_bg};
+    --sibyl-desk-bg:       ${d.desk_bg};
+    --sibyl-card-bg:       ${d.card_bg};
+    --sibyl-font-sans:     '${d.font_family}', sans-serif;
+    --sibyl-font-size-base:${d.font_size_base}px;
+    --sibyl-radius-md:     ${d.border_radius}px;
+    --sibyl-sidebar-width: ${d.sidebar_width}px;
+    --sibyl-navbar-height: ${d.navbar_height}px;
+}
+${d.custom_css || ''}`;
+}
+
+// ═══════════════════════════════════════════
+//  UI HELPERS
+// ═══════════════════════════════════════════
+function showSaveIndicator(msg) {
+    const el = document.getElementById('saveIndicator');
+    document.getElementById('saveText').textContent = msg;
+    el.classList.add('visible');
+    setTimeout(() => el.classList.remove('visible'), 2800);
+}
+</script>
+</body>
+</html>
