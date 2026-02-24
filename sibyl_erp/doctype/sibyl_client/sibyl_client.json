@@ -1,0 +1,40 @@
+{
+ "doctype": "DocType",
+ "name": "Sibyl Client",
+ "module": "Sibyl ERP",
+ "autoname": "field:client_name",
+ "field_order": [
+  "client_name","status","plan","column_break_1",
+  "company","site_name","contact_email",
+  "sb_theme","active_theme","override_enabled",
+  "sb_modules","enabled_modules",
+  "sb_limits","max_users","storage_limit_gb",
+  "sb_meta","created_on","last_active","notes"
+ ],
+ "fields": [
+  {"fieldname":"client_name","fieldtype":"Data","label":"Client Name","reqd":1,"bold":1,"in_list_view":1},
+  {"fieldname":"status","fieldtype":"Select","label":"Status","options":"Active\nTrial\nSuspended\nInactive","default":"Trial","in_list_view":1},
+  {"fieldname":"plan","fieldtype":"Select","label":"Plan","options":"Starter\nGrowth\nEnterprise\nCustom","default":"Starter","in_list_view":1},
+  {"fieldname":"column_break_1","fieldtype":"Column Break"},
+  {"fieldname":"company","fieldtype":"Link","label":"Frappe Company","options":"Company"},
+  {"fieldname":"site_name","fieldtype":"Data","label":"Site / Domain"},
+  {"fieldname":"contact_email","fieldtype":"Data","label":"Contact Email","options":"Email"},
+  {"fieldname":"sb_theme","fieldtype":"Section Break","label":"🎨 Theme"},
+  {"fieldname":"active_theme","fieldtype":"Link","label":"Active Theme","options":"Sibyl Theme"},
+  {"fieldname":"override_enabled","fieldtype":"Check","label":"Allow Client to Customize Theme"},
+  {"fieldname":"sb_modules","fieldtype":"Section Break","label":"🗂️ Enabled Modules"},
+  {"fieldname":"enabled_modules","fieldtype":"Table MultiSelect","label":"Enabled Modules","options":"Sibyl Module Access"},
+  {"fieldname":"sb_limits","fieldtype":"Section Break","label":"📊 Limits"},
+  {"fieldname":"max_users","fieldtype":"Int","label":"Max Users","default":"5"},
+  {"fieldname":"storage_limit_gb","fieldtype":"Float","label":"Storage Limit (GB)","default":"10"},
+  {"fieldname":"sb_meta","fieldtype":"Section Break","label":"Meta","collapsible":1},
+  {"fieldname":"created_on","fieldtype":"Date","label":"Created On","read_only":1},
+  {"fieldname":"last_active","fieldtype":"Datetime","label":"Last Active","read_only":1},
+  {"fieldname":"notes","fieldtype":"Text","label":"Internal Notes"}
+ ],
+ "permissions": [
+  {"create":1,"delete":1,"read":1,"write":1,"role":"System Manager"},
+  {"create":1,"delete":1,"read":1,"write":1,"role":"Sibyl Admin"}
+ ],
+ "track_changes": 1
+}

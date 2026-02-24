@@ -1,0 +1,13 @@
+{
+ "doctype": "DocType",
+ "istable": 1,
+ "name": "Sibyl Module Color",
+ "module": "Sibyl ERP",
+ "fields": [
+  {"fieldname":"module_name","fieldtype":"Select","label":"Module","options":"Accounts\nSelling\nBuying\nStock\nCRM\nHR\nProjects\nAssets\nManufacturing\nSupport\nPayroll\nQuality Management","reqd":1,"in_list_view":1},
+  {"fieldname":"color","fieldtype":"Color","label":"Color","reqd":1,"in_list_view":1},
+  {"fieldname":"icon","fieldtype":"Data","label":"Icon (Frappe icon name)","in_list_view":1},
+  {"fieldname":"hidden","fieldtype":"Check","label":"Hide Module","in_list_view":1}
+ ],
+ "permissions": []
+}
